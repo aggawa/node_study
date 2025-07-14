@@ -1,0 +1,34 @@
+http://localhost:8000
+http://localhost:8000/test
+
+↓ 기본적인 세팅
+
+1. npm init -y
+
+2. npm install express
+npm install dotenv
+npm install -D nodemon
++ npm install morgan
++ static 미들웨어 사용시에는 punlic에 이미지 파일 기릿
+
+3. "start": "nodemon index.js", <- package.json - scripts에 추가
+
+4. ↓ 기본적인 틀은 이러합니다
+const express = require('express')
+require('dotenv').config()
+
+const app = express()
+app.set('port', process.env.PORT || 3000)
+
+app.listen(app.get('port'), () => {
+   console.log(`서버가 작동 중 입니다. http://localhost:${app.get('port')}`)
+})
+
+** 실행 과정 - request 해줌 -> 미들웨어 먼저 실행 -> response 해줌 **
+
+next() -> 다음 미들웨어가 있다면 다음 미들웨어로 이동,
+    다음 미들웨어가 없다면 response로 이동시켜줌
+
+app.use에 경로를 어떻게 해주냐에 따라 ㅇㅇㅇ
+
+
