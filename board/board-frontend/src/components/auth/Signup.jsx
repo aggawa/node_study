@@ -1,7 +1,7 @@
 import { TextField, Button, Container, Typography, CircularProgress } from '@mui/material'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { registerUserThunk, clearAuthError } from '../../features/authSlice'
+import { registerMemberThunk, clearAuthError } from '../../features/authSlice'
 import { useNavigate } from 'react-router-dom'
 
 function Signup() {
@@ -13,9 +13,7 @@ function Signup() {
 
    const dispatch = useDispatch()
    const navigate = useNavigate()
-   const { loading, error } = useSelector((state) => {
-      state.auth
-   })
+   const { loading, error } = useSelector((state) => state.auth)
 
    useEffect(() => {
       return () => {
@@ -34,7 +32,7 @@ function Signup() {
          return
       }
 
-      dispatch(registerUserThunk({ email, name, password }))
+      dispatch(registerMemberThunk({ email, name, password }))
          .unwrap()
          .then(() => {
             // 회원가입 성공시

@@ -16,18 +16,6 @@ module.exports = class Board extends Sequelize.Model {
                type: Sequelize.STRING(255),
                allowNull: true,
             },
-            createdAt: {
-               type: Sequelize.DATE,
-               allowNull: false,
-            },
-            updatedAt: {
-               type: Sequelize.DATE,
-               allowNull: false,
-            },
-            deletedAt: {
-               type: Sequelize.DATE,
-               allowNull: false,
-            },
          },
          {
             sequelize,

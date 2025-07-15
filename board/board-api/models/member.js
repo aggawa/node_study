@@ -19,18 +19,6 @@ module.exports = class Member extends Sequelize.Model {
                allowNull: false,
                unique: true,
             },
-            createdAt: {
-               type: Sequelize.DATE,
-               allowNull: false,
-            },
-            updatedAt: {
-               type: Sequelize.DATE,
-               allowNull: false,
-            },
-            deletedAt: {
-               type: Sequelize.DATE,
-               allowNull: false,
-            },
          },
          {
             sequelize,
