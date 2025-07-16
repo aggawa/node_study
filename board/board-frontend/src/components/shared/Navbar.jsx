@@ -6,15 +6,15 @@ import IconButton from '@mui/material/IconButton'
 import CreateIcon from '@mui/icons-material/Create'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-// import { logoutUserThunk } from '../../features/authSlice'
+import { logoutMemberThunk } from '../../features/authSlice'
 
-function Navbar({ isAuthenticated, user }) {
+function Navbar({ isAuthenticated, member }) {
    const dispatch = useDispatch()
    const navigate = useNavigate()
 
    // 로그아웃 버튼을 눌렀을 때 로그아웃
    const handleLogout = () => {
-      dispatch(logoutUserThunk())
+      dispatch(logoutMemberThunk())
          .unwrap()
          .then(() => {
             navigate('/') // 로그아웃 완료 후 메인 페이지로 이동
@@ -35,14 +35,15 @@ function Navbar({ isAuthenticated, user }) {
             {isAuthenticated ? (
                // 로그아웃 버튼 보여주기
                <>
-                  <Link to="/posts/create">
+                  {/* 요기 */}
+                  <Link to="/board/create">
                      <IconButton aria-label="글쓰기">
                         <CreateIcon />
                      </IconButton>
                   </Link>
                   <Link to="/my" style={{ textDecoration: 'none' }}>
                      <Typography variant="body1" style={{ marginRight: '20px', color: 'black' }}>
-                        {user?.name}님
+                        {member.name}님
                      </Typography>
                   </Link>
                   <Button onClick={handleLogout} variant="outlined">

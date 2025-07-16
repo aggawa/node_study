@@ -97,12 +97,15 @@ router.get('/logout', isLoggedIn, async (req, res, next) => {
 // ↓ 현재 로그인 상태
 router.get('/status', async (req, res, next) => {
    try {
+      console.log('req.user객체: ', req.user)
       if (req.isAuthenticated()) {
          res.status(200).json({
             isAuthenticated: true,
+            // 오류
             member: {
-               id: req.member.id,
-               name: req.member.name,
+               id: req.user.id,
+               name: req.user.name,
+               // req.user 객체에 저장되는 것은 규칙 같은거니 그냥 외우쟝
             },
          })
       } else {
