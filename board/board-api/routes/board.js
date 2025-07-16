@@ -51,9 +51,10 @@ router.post('/', isLoggedIn, upload.single('img'), async (req, res, next) => {
          board: {
             id: board.id,
             // 여기도 타이틀을 만들어줘야겠죠 아마
+            title: board.title,
             content: board.content,
             img: board.img,
-            memberId: board.member_id,
+            memberId: board.memberId,
          },
          message: '게시물이 성공적으로 등록되었습니다.',
       })
