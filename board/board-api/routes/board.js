@@ -83,7 +83,15 @@ router.put('/:id', isLoggedIn, upload.single('img'), async (req, res, next) => {
          img: req.file ? `/${req.file.filename}` : board.img,
       })
 
-      // const updatedBoard = await PostItem.findOne
+      const updatedBoard = await Board.findOne({
+         where: { id: req.params.id },
+         include: [
+            {
+               model: Member,
+               attributes: ['id', 'name'],
+            },
+         ],
+      })
 
       res.status(200).json({
          success: true,
@@ -97,12 +105,12 @@ router.put('/:id', isLoggedIn, upload.single('img'), async (req, res, next) => {
    }
 })
 
-// 게시물 삭제
+// 게시물 삭제 localhost:8000/board/:id
 router.delete('/:id', isLoggedIn, async (req, res, next) => {
    try {
       const board = await Board.findOne({
          // 여기
-         where: { id: req.params.id, memberId: req.member.id },
+         where: { id: req.params.id, memberId: req.user.id },
       })
 
       if (!board) {
