@@ -12,6 +12,7 @@ const indexRouter = require('./routes')
 const authRouter = require('./routes/auth')
 const memberRouter = require('./routes/member')
 const boardRouter = require('./routes/board')
+const pageRouter = require('./routes/page')
 const { sequelize } = require('./models')
 const passportConfig = require('./passport')
 
@@ -61,6 +62,7 @@ app.use('/', indexRouter)
 app.use('/auth', authRouter)
 app.use('/member', memberRouter)
 app.use('/board', boardRouter)
+app.use('/page', pageRouter)
 
 // 잘못된 라우터 경로 처리
 app.use((req, res, next) => {

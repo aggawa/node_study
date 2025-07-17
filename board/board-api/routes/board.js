@@ -39,8 +39,6 @@ router.post('/', isLoggedIn, upload.single('img'), async (req, res, next) => {
 
       // 게시물 등록
       const board = await Board.create({
-         // db에 title 만들기 -> 입력하는곳도 만들어야하고 그럼
-         // 여기 다 db 컬럼명 / 거따 데이터 넣는곳
          title: req.body.title,
          content: req.body.content,
          img: `/${req.file.filename}`,
@@ -50,7 +48,6 @@ router.post('/', isLoggedIn, upload.single('img'), async (req, res, next) => {
          success: true,
          board: {
             id: board.id,
-            // 여기도 타이틀을 만들어줘야겠죠 아마
             title: board.title,
             content: board.content,
             img: board.img,
@@ -61,6 +58,137 @@ router.post('/', isLoggedIn, upload.single('img'), async (req, res, next) => {
    } catch (error) {
       error.status = 500
       error.message = '게시물 등록 중 오류가 발생했습니다.'
+      next(error)
+   }
+})
+
+// 게시물 수정
+// localhost:8000/board/:id
+router.put('/:id', isLoggedIn, upload.single('img'), async (req, res, next) => {
+   try {
+      const board = await Board.findOne({
+         // 여기
+         where: { id: req.params.id, memberId: req.user.id },
+      })
+
+      if (!board) {
+         const error = new Error('게시물을 찾을 수 없습니다.')
+         error.status = 404
+         return next(error)
+      }
+
+      await board.update({
+         title: req.body.title,
+         content: req.body.content,
+         img: req.file ? `/${req.file.filename}` : board.img,
+      })
+
+      // const updatedBoard = await PostItem.findOne
+
+      res.status(200).json({
+         success: true,
+         board: updatedBoard, // ??????
+         message: '게시물이 성공적으로 수정되었습니다.',
+      })
+   } catch (error) {
+      error.status = 500
+      error.message = '게시물 수정 중 오류가 발생했습니다.'
+      next(error)
+   }
+})
+
+// 게시물 삭제
+router.delete('/:id', isLoggedIn, async (req, res, next) => {
+   try {
+      const board = await Board.findOne({
+         // 여기
+         where: { id: req.params.id, memberId: req.member.id },
+      })
+
+      if (!board) {
+         const error = new Error('게시물을 찾을 수 없습니다.')
+         error.status = 404
+         return next(error)
+      }
+
+      await board.destroy() // 삭제
+
+      res.status(200).json({
+         success: true,
+         message: '게시물이 성공적으로 삭제되었습니다.',
+      })
+   } catch (error) {
+      error.status = 500
+      error.message = '게시물 삭제 중 오류가 발생했습니다.'
+      next(error)
+   }
+})
+
+// 게시물 페이징
+router.get('/', async (req, res, next) => {
+   try {
+      const page = parseInt(req.query.page, 10) || 1
+      const limit = parseInt(req.query.limit, 10) || 3
+      const offset = (page - 1) * limit
+      const count = await Board.count()
+
+      const boards = await Board.findAll({
+         limit,
+         offset,
+         order: [['createdAt', 'DESC']],
+         include: [
+            {
+               model: Member,
+               attributes: ['id', 'name', 'email'],
+            },
+         ],
+      })
+
+      console.log('board: ', boards)
+
+      res.status(200).json({
+         success: true,
+         boards,
+         pagination: {
+            totalBoards: count,
+            currentPage: page,
+            totalPages: Math.ceil(count / limit),
+            limit,
+         },
+         message: '전체 게시물 리스트를 성공적으로 불러왔습니다.',
+      })
+   } catch (error) {
+      error.status = 500
+      error.message = '게시물 리스트를 불러오는 중 오류가 발생했습니다.'
+      next(error)
+   }
+})
+
+// 특정 게시물
+router.get('/:id', async (req, res, next) => {
+   try {
+      const board = await Board.findOne({
+         where: { id: req.params.id },
+         include: [
+            {
+               model: Member,
+               attributes: ['id', 'name', 'email'],
+            },
+         ],
+      })
+      if (!board) {
+         const error = new Error('게시물을 찾을 수 없습니다.')
+         error.status = 404
+         return next(error)
+      }
+      res.status(200).json({
+         success: true,
+         board,
+         message: '게시물을 성공적으로 불러왔습니다.',
+      })
+   } catch (error) {
+      error.status = 500
+      error.message = '특정 게시물을 불러오는 중 오류가 발생했습니다.'
       next(error)
    }
 })

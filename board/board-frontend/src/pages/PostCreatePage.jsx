@@ -9,11 +9,10 @@ function PostCreatePage() {
    const dispatch = useDispatch()
 
    const onPostCreate = (boardData) => {
-      // formData 객체
       dispatch(createPostThunk(boardData))
          .unwrap()
          .then(() => {
-            navigate('/') //게시물 등록 후 메인페이지로 이동
+            navigate('/')
          })
          .catch((error) => {
             console.error('게시물 등록 에러: ', error)
