@@ -50,21 +50,25 @@ function PostCreateForm({ onPostCreate }) {
 
          <TextField label="게시물 내용" variant="outlined" fullWidth multiline rows={4} value={content} onChange={(e) => setContent(e.target.value)} sx={{ mt: 2 }} placeholder="내용을 입력하세요" />
 
-         <Button variant="contained" component="label" color="primary" sx={{ mt: 2 }} style={{ paddingRight: '20px' }}>
-            {/* 이 버튼 style 이거 손 좀 봐요 */}
-            이미지 업로드
-            <input type="file" name="img" accept="image/*" hidden onChange={handleImageChange} />
-         </Button>
+         <Box style={{ width: '70%', display: 'inline-block' }}>
+            <Button variant="contained" component="label" color="primary" sx={{ mt: 2 }}>
+               {/* 이 버튼 style 이거 손 좀 봐요 */}
+               이미지 업로드
+               <input type="file" name="img" accept="image/*" hidden onChange={handleImageChange} />
+            </Button>
 
-         {imgUrl && (
-            <Box mt={2}>
-               <img src={imgUrl} alt="업로드 이미지 미리보기" style={{ width: '400px' }} />
-            </Box>
-         )}
+            {imgUrl && (
+               <Box mt={2}>
+                  <img src={imgUrl} alt="업로드 이미지 미리보기" style={{ width: '400px' }} />
+               </Box>
+            )}
+         </Box>
 
-         <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
-            등록하기
-         </Button>
+         <Box style={{ display: 'inline', float: 'top' }}>
+            <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }} style={{ float: 'right' }}>
+               등록하기
+            </Button>
+         </Box>
       </Box>
    )
 }

@@ -49,6 +49,30 @@ export const logoutMember = async () => {
    }
 }
 
+// 마이페이지
+// 여기에요 여기
+export const getMyPage = async (id, memberData) => {
+   try {
+      console.log(response)
+      const response = await boardApi.get(`/my/:id`, memberData, config)
+      return response
+   } catch (error) {
+      console.error(`API Request 오류: ${error}`)
+      throw error
+   }
+}
+// 전체 포스트 페이징
+// export const getBoards = async (page) => {
+//    try {
+//       const response = await boardApi.get(`/board?page=${page}`)
+//       console.log('페이징 response: ', response)
+//       return response
+//    } catch (error) {
+//       console.error(`API Request 오류: ${error}`)
+//       throw error
+//    }
+// }
+
 // 로그인 상태 확인
 export const checkAuthStatus = async () => {
    try {

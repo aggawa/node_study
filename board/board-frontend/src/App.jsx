@@ -5,6 +5,7 @@ import SignupPage from './pages/SignupPage'
 import LoginPage from './pages/LoginPage'
 import PostCreatePage from './pages/PostCreatePage'
 import PostEditPage from './pages/PostEditPage'
+import MyPage from './pages/MyPage'
 
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -30,6 +31,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/board/create" element={<PostCreatePage />} />
             <Route path="/board/edit/:id" element={<PostEditPage />} />
+            <Route path="/my/:id" element={<MyPage />} />
          </Routes>
       </>
    )

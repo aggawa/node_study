@@ -29,19 +29,18 @@ function Navbar({ isAuthenticated, member }) {
          <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                <Link to="/">
-                  <img src="/images/logo.png" alt="로고" width="160" style={{ display: 'inline-block', marginTop: '15px' }} />
+                  <img src="/images/ezen.jpg" alt="로고" width="55" style={{ display: 'inline-block', marginTop: '15px' }} />
                </Link>
             </Typography>
             {isAuthenticated ? (
                // 로그아웃 버튼 보여주기
                <>
-                  {/* 요기 */}
                   <Link to="/board/create">
                      <IconButton aria-label="글쓰기">
                         <CreateIcon />
                      </IconButton>
                   </Link>
-                  <Link to="/my" style={{ textDecoration: 'none' }}>
+                  <Link to={`/my/${member.id}`} style={{ textDecoration: 'none' }}>
                      <Typography variant="body1" style={{ marginRight: '20px', color: 'black' }}>
                         {member.name}님
                      </Typography>

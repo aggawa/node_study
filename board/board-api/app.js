@@ -60,7 +60,7 @@ app.use(passport.session())
 // 라우터 등록
 app.use('/', indexRouter)
 app.use('/auth', authRouter)
-app.use('/member', memberRouter)
+app.use('/my', memberRouter) // 회원정보 라우트
 app.use('/board', boardRouter)
 app.use('/page', pageRouter)
 

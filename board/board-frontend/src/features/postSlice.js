@@ -53,7 +53,7 @@ export const fetchBoardsThunk = createAsyncThunk('board/fetchBoards', async (pag
 })
 
 // 특정 게시물
-export const fetchBoardByIdThunk = createAsyncThunk('post/fetchPostById', async (id, { rejectWithvalue }) => {
+export const fetchBoardByIdThunk = createAsyncThunk('board/fetchPostById', async (id, { rejectWithvalue }) => {
    try {
       console.log('id: ', id)
       const response = await getBoardById(id)
@@ -69,7 +69,7 @@ const postSlice = createSlice({
    name: 'boards',
    initialState: {
       board: null,
-      boards: [], // 리스트
+      boards: [],
       pagination: null,
       loading: false,
       error: null,

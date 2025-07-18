@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography, Box, CardActions, Button, IconButton } from '@mui/material'
+import { Card, CardMedia, CardContent, Typography, Box, CardActions, Button, IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import dayjs from 'dayjs'
@@ -29,6 +29,7 @@ function PostItem({ board, isAuthenticated, member }) {
 
    return (
       <Card style={{ margin: '20px 0' }}>
+         <CardMedia sx={{ height: 300 }} image={`${import.meta.env.VITE_APP_API_URL}${board.img}`} title={board.content} style={{ backgroundSize: '250px 250px' }} />
          <CardContent style={{ display: 'inline-block' }}>
             <Link to={`/my/${board.Member.id}`} style={{ textDecoration: 'none' }}>
                <Typography sx={{ color: 'primary.main' }}>{board.Member.name} 님</Typography>
